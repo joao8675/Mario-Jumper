@@ -3,7 +3,12 @@
     padding: 0;
     box-sizing: border-box;
 }
-
+body {
+    background-image: url(./Assets/images/dirty.jpg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
 .game-board {
     width: 100%;
     height: 500px;
