@@ -1,7 +1,10 @@
+@import url('https://fonts.cdnfonts.com/css/new-super-mario-font-u');
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: 'New Super Mario Font U', sans-serif;
 }
 body {
     background-image: url(./Assets/images/dirty.jpg);
@@ -31,15 +34,6 @@ body {
     height: 76px;
     animation: pipe-animation 2s infinite linear;
 }
-
-@keyframes pipe-animation {
-    from {
-        right: -80px;
-    }
-    to {
-        right: 100%;
-    }
-}
 .mario {
     position: absolute;
     bottom: 0px;
@@ -48,6 +42,71 @@ body {
 .jump {
      animation: jump 600ms ease-out; 
 }
+.active {
+    text-align: center;
+    width: 100%;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    width: 100%;
+    z-index: 9999;
+}
+.active h1 {
+    text-transform: uppercase;
+    font-size: 150px;
+    background-image: linear-gradient(to bottom, #ffa500 53%, #ff7b00 50%);
+    -webkit-background-clip: text;
+    color: transparent;
+    margin-bottom: 50px;
+    transition: all 0.3s;
+}
+.active h1:hover {
+    font-family: 'New Super Mario Font U', sans-serif;
+    font-size: 160px;
+}
+.active h3 {
+    text-transform: uppercase;
+    color: white;
+    font-size: 50px;
+    -webkit-text-stroke: 2.5px rgba(0, 0, 0, 0.877);
+    letter-spacing: 0.18em;
+}
+.active button {
+    background-color: transparent;
+    border: none;
+    margin: 20px;
+    transition: all 0.07s;
+}
+.active button.yes,
+.active button.no {
+    display: block;
+    margin: 10px auto; /* Margem para espaçamento vertical */
+    background-color: transparent;
+    border: none;
+    transition: all 0.1s;
+    cursor: pointer;
+    padding-left: 10px;
+}
+.active button:hover {
+    border-left: 4px solid #ff7b00;
+}
+.active button h3 {
+    transition: all 0.3s;
+}
+.active button h3:hover {
+    font-size: 52px;
+}
+@keyframes pipe-animation {
+    from {
+        right: -80px;
+    }
+    to {
+        right: 100%;
+    }
+}
+
 @keyframes jump {
     0% {
         bottom: 0;

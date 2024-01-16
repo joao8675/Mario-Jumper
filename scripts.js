@@ -4,8 +4,9 @@ const jumpImage = './Assets/images/jump.png';
 const jumpSound = new Audio('./Assets/audio/jumpSound.mp3');
 const gameOverAudio = new Audio('./Assets/audio/GameOverAudio.mp3');
 
-let allowJump = true; // Adiciona uma variável para controlar se o pulo é permitido
-let gameOver = false; // Adiciona uma variável para controlar se o jogo acabou
+let allowJump = true;
+let gameOver = false;
+let loop;
 
 function playJumpSound() {
     jumpSound.currentTime = 0;
@@ -13,7 +14,7 @@ function playJumpSound() {
 }
 
 const jump = () => {
-    if (!allowJump || gameOver) return; // Retorna se o pulo não for permitido ou o jogo acabou
+    if (!allowJump || gameOver) return;
     playJumpSound();
     mario.classList.add('jump');
     mario.src = jumpImage;
@@ -31,14 +32,40 @@ function playGameOverAudio() {
     gameOverAudio.play();
 }
 
-const loop = setInterval(() => {
+function restartGame() {
+
+    allowJump = true;
+    gameOver = false;
+
+
+    document.querySelector('.game-over').style.display = 'none';
+
+
+    clearInterval(loop);
+    setupInitialState();
+    loop = setInterval(updateGame, 10);
+}
+
+function setupInitialState() {
+
+
+
+    mario.style.bottom = '0px';
+
+
+    
+    pipe.style.left = '90%';
+    pipe.style.animation = 'pipe-animation 2s infinite linear';
+
+}
+
+function updateGame() {
     const pipePosition = pipe.offsetLeft;
     const marioPosition = +window.getComputedStyle(mario).bottom.replace('px', '');
 
     if (pipePosition < 120 && pipePosition > 0 && marioPosition < 80) {
-        
         playGameOverAudio();
-        
+
         allowJump = false;
         gameOver = true;
 
@@ -53,7 +80,34 @@ const loop = setInterval(() => {
         mario.style.marginLeft = '50px';
 
         clearInterval(loop);
+
+
+        document.querySelector('.game-over').style.display = 'block';
+
+
+        localStorage.setItem('gameStatus', 'gameOver');
     }
-}, 10);
+}
 
 document.addEventListener('keydown', jump);
+
+
+document.querySelector('.yes').addEventListener('click', () => {
+    restartGame();
+});
+
+document.querySelector('.no').addEventListener('click', () => {
+
+
+});
+
+
+window.onload = () => {
+    const gameStatus = localStorage.getItem('gameStatus');
+    if (gameStatus === 'gameOver') {
+        document.querySelector('.game-over').style.display = 'block';
+    } else {
+        setupInitialState();
+        loop = setInterval(updateGame, 10);
+    }
+};
